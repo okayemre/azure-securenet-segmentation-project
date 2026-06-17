@@ -13,6 +13,13 @@
         "virtualNetworks_vnet_securenet_name": {
             "defaultValue": "vnet-securenet",
             "type": "String"
+        },
+        "allowedSshSourceIp": {
+            "defaultValue": "92.209.184.78/32",
+            "type": "String",
+            "metadata": {
+                "description": "Public IP address (CIDR format) allowed to SSH into web-vm. Replace the default value with your own IP before deploying."
+            }
         }
     },
     "variables": {},
@@ -125,7 +132,7 @@
                             "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "22",
-                            "sourceAddressPrefix": "92.209.184.78/32",
+                            "sourceAddressPrefix": "[parameters('allowedSshSourceIp')]",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
                             "priority": 110,
@@ -214,7 +221,7 @@
                 "protocol": "TCP",
                 "sourcePortRange": "*",
                 "destinationPortRange": "22",
-                "sourceAddressPrefix": "92.209.184.78/32",
+                "sourceAddressPrefix": "[parameters('allowedSshSourceIp')]",
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 110,
