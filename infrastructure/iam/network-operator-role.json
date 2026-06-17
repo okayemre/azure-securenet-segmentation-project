@@ -1,1 +1,29 @@
-
+{
+  "properties": {
+    "roleName": "Network-Operator",
+    "description": "Allows reading and editing VNet and NSG resources within the assigned scope. Cannot delete resources, manage role assignments (Owner-like access), or view billing/cost information.",
+    "assignableScopes": [
+      "/subscriptions/7ecb7696-f783-45f2-a5da-21a88a51d66e/resourceGroups/rg-securenet-prod"
+    ],
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.Network/virtualNetworks/read",
+          "Microsoft.Network/virtualNetworks/write",
+          "Microsoft.Network/virtualNetworks/subnets/read",
+          "Microsoft.Network/virtualNetworks/subnets/write",
+          "Microsoft.Network/virtualNetworks/subnets/join/action",
+          "Microsoft.Network/networkSecurityGroups/read",
+          "Microsoft.Network/networkSecurityGroups/write",
+          "Microsoft.Network/networkSecurityGroups/securityRules/read",
+          "Microsoft.Network/networkSecurityGroups/securityRules/write",
+          "Microsoft.Network/networkSecurityGroups/join/action",
+          "Microsoft.Resources/subscriptions/resourceGroups/read"
+        ],
+        "notActions": [],
+        "dataActions": [],
+        "notDataActions": []
+      }
+    ]
+  }
+}
