@@ -1,1 +1,38 @@
-
+{
+  "properties": {
+    "displayName": "Deny public IP on database subnet",
+    "description": "Denies creation or update of network interfaces that have a public IP address associated, when the IP configuration's subnet is the database subnet (snet-db). This enforces the architecture rule that db-vm must never be directly reachable from the internet.",
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/networkInterfaces"
+          },
+          {
+            "count": {
+              "field": "Microsoft.Network/networkInterfaces/ipConfigurations[*]",
+              "where": {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Network/networkInterfaces/ipConfigurations[*].subnet.id",
+                    "like": "*/snet-db"
+                  },
+                  {
+                    "field": "Microsoft.Network/networkInterfaces/ipConfigurations[*].publicIPAddress.id",
+                    "exists": "true"
+                  }
+                ]
+              }
+            },
+            "greaterOrEquals": 1
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
