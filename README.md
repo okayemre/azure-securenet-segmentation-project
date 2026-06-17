@@ -364,11 +364,10 @@ Built and tested on an Azure for Students subscription, with cost discipline as 
 
 ![Assigned policies](./docs/screenshots/governance/12-assigned-policies.png)
 
-![Defender for Cloud Secure Score — before](./docs/screenshots/governance/13-secure-score-before.png)
+![Defender for Cloud Secure Score](./docs/screenshots/governance/13-secure-score.png)
 
-![Defender for Cloud Secure Score — after](./docs/screenshots/governance/14-secure-score-after.png)
-
-![Applied recommendations](./docs/screenshots/governance/15-applied-recommendations.png)
+![Foundational recommendations already satisfied](./docs/screenshots/governance/14-recommendations-completed.png)
+*Most foundational recommendations show as "Completed" without any remediation step — a direct result of the NSG rules, RBAC model, and lack of guest/legacy accounts already built earlier in this project. The one outstanding item (a vulnerability assessment solution) requires a paid Defender plan and was intentionally left disabled to stay within budget.*
 
 </details>
 
@@ -396,6 +395,7 @@ Built and tested on an Azure for Students subscription, with cost discipline as 
 - 🌐 `raw.githubusercontent.com` is served through a CDN with its own caching layer, separate from GitHub's own UI — a file can look correct in the GitHub blob view and still serve stale content to a "Deploy to Azure" button for several minutes
 - 🔑 Managed Identity removes the hardest part of secrets management — there's no key to rotate, leak, or forget, because there's no key at all
 - 💸 Auto-shutdown and explicit deallocation are not optional when working with a limited student credit — and documenting that discipline is itself a portfolio signal
+- 🧭 Subscription-level Owner doesn't guarantee tenant-level visibility for cross-cutting tools like Defender for Cloud — its inventory stayed empty for hours despite the resource provider being registered, the `ASC Default` policy correctly assigned, and Foundational CSPM active. Assigning a tenant-root Security Reader role (via Defender's "Get permissions" flow) and manually triggering a policy compliance scan (`az policy state trigger-scan`) is what finally surfaced the inventory
 
 ---
 
