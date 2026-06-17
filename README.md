@@ -37,35 +37,7 @@ Most tutorials show you how to spin up a VNet and call it done. This project goe
 
 ## 🏗️ Architecture
 
-```mermaid
-graph TD
-    Internet(["🌐 Internet"])
-
-    subgraph RG["📦 rg-securenet-prod — Sweden Central"]
-        WEBVM["💻 web-vm<br/>snet-web · 10.0.1.0/24<br/>Public IP + Managed Identity"]
-        DBVM["🗄️ db-vm<br/>snet-db · 10.0.2.0/24<br/>No Public IP"]
-        KV["🔐 Key Vault<br/>kv-securenet"]
-    end
-
-    GOV["👥 Entra ID: Netzwerk-Team + Network-Operator role<br/>📋 Azure Policy: tag + public IP rules<br/>🛡️ Defender for Cloud<br/>📊 Azure Monitor: CPU + Availability alerts"]
-
-    Internet -->|"80, 443 inbound<br/>SSH from office IP only"| WEBVM
-    WEBVM -->|"Port 5432 only<br/>NSG-enforced"| DBVM
-    WEBVM -.->|"Managed Identity<br/>no credentials"| KV
-    GOV -.->|"governs & monitors"| RG
-
-    classDef vm fill:#1f6feb,stroke:#0d419d,color:#ffffff,stroke-width:1px
-    classDef vault fill:#9e6a03,stroke:#7d5104,color:#ffffff,stroke-width:1px
-    classDef gov fill:#6e40c9,stroke:#4c2889,color:#ffffff,stroke-width:1px
-    classDef ext fill:#2da44e,stroke:#1a7f37,color:#ffffff,stroke-width:1px
-
-    class WEBVM,DBVM vm
-    class KV vault
-    class GOV gov
-    class Internet ext
-
-    style RG fill:#161b22,stroke:#30363d,color:#ffffff
-```
+![Architecture diagram](./docs/screenshots/network/00-architecture.png)
 
 <details>
 <summary>Text version (for plain-text readers)</summary>
